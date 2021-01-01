@@ -9,8 +9,16 @@ ENV HOME=/${WORKDIR} \
     TZ=Asia/Tokyo \
     HOST=0.0.0.0 \
     API_URL=${API_URL}
+    NPM_CONFIG_PRODUCTION=false
 
 WORKDIR ${HOME}
+
+COPY package*.json ./
+RUN yarn install
+
+COPY . .
+
+RUN yarn run build
 
 EXPOSE ${CONTAINER_PORT}
 
