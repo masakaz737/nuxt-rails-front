@@ -11,18 +11,22 @@ ENV HOME=/${WORKDIR} \
     API_URL=${API_URL} \
     NPM_CONFIG_PRODUCTION=false
 
+# ENV check
+RUN echo ${HOME}
+RUN echo ${CONTAINER_PORT}
+RUN echo ${API_URL}
+
 WORKDIR ${HOME}
 
 COPY package*.json ./
-RUN yarn install
+
+RUN apk update && \
+    apk upgrade && \
+    apk add --no-cache make gcc g++ python && \
+    yarn install
 
 COPY . .
 
 RUN yarn run build
 
 EXPOSE ${CONTAINER_PORT}
-
-# ENV check
-RUN echo ${HOME}
-RUN echo ${CONTAINER_PORT}
-RUN echo ${API_URL}
