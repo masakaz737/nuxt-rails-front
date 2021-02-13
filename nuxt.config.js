@@ -2,6 +2,9 @@ export default {
   // Disable server-side rendering (https://go.nuxtjs.dev/ssr-mode)
   ssr: false,
 
+  // Doc: https://ja.nuxtjs.org/blog/going-full-static/
+  target: 'server',
+
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: 'app',
@@ -40,6 +43,12 @@ export default {
     'nuxt-i18n'
   ],
 
+  // public ENV
+  // Doc: https://nuxtjs.org/guide/runtime-config/
+  publicRuntimeConfig: {
+    appName: process.env.APP_NAME // 追加
+  },
+
   vuetify: {
     // 開発環境でcustomVariablesを有効にするフラグ
     // Doc: https://vuetifyjs.com/ja/customization/a-la-carte/
@@ -53,23 +62,30 @@ export default {
           success: '44D69E',
           warning: 'FEB65E',
           error: 'FB8678',
-          background: 'f6f6f4'
+          background: 'f6f6f4',
+          myblue: '1867C0'
         }
       }
     }
   },
+
   css: [
     '~/assets/sass/main.scss' // 追加
   ],
 
   // Doc: https://nuxt-community.github.io/nuxt-i18n/basic-usage.html#nuxt-link
   i18n: {
+    // アプリがサポートしている言語
     locales: ['ja', 'en'],
+    // デフォルトの言語
     defaultLocale: 'ja',
     // Doc: https://kazupon.github.io/vue-i18n/api/#properties
     vueI18n: {
+      // defaultLocale(ja.json)にkeyがない場合に参照される(フォールバック)言語
       fallbackLocale: 'ja',
+      // true => 翻訳に失敗した場合の警告メッセージを出力しない
       // silentTranslationWarn: true,
+      // true => keyが全くない場合のみ警告が発生し、フォールバック時には警告は発生しない
       silentFallbackWarn: true,
       messages: {
         ja: require('./locales/ja.json'),
@@ -77,6 +93,7 @@ export default {
       }
     }
   },
+
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
