@@ -75,6 +75,7 @@ export default {
 
   // Doc: https://nuxt-community.github.io/nuxt-i18n/basic-usage.html#nuxt-link
   i18n: {
+    strategy: 'no_prefix',
     // アプリがサポートしている言語
     locales: ['ja', 'en'],
     // デフォルトの言語
